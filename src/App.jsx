@@ -20,33 +20,39 @@ const commercial=[
    incomeMonthly:187_000,incomeAnnual:2_244_000,expenses:0,bondRate:0.115,bondYears:20,
    note:"34 rooms. NSFAS + Thuthuka + private. AAA grade. Solar + inverter. 5min to UJ APK. CONFIRMED income.",
    url:"https://www.property24.com/for-sale/auckland-park/johannesburg/gauteng/4130/117111334",
+   img:"https://i.imgur.com/njigPoS.png",
    highlight:"ANCHOR ASSET — Buy First",hColor:"#4ecb8a"},
   {id:"c2",order:2,name:"Auckland Park — 22 Students",location:"Auckland Park, JHB",
    zarPrice:8_500_000,depositPct:0.20,status:"operational",type:"Student Acc",
    incomeMonthly:100_000,incomeAnnual:1_200_000,expenses:10_000,bondRate:0.115,bondYears:20,
    note:"22 students. 10 units. NSFAS-backed. AAA grade. 24hr backup power + water. Same corridor as C1.",
    url:"https://www.property24.com/for-sale/auckland-park/johannesburg/gauteng/4130/117107185",
+   img:"https://i.imgur.com/RBI3672.png",
    highlight:"Buy Second — Same Agent & Corridor",hColor:"#4a9eff"},
   {id:"c3",order:3,name:"Braamfontein — 33 Units + Shops",location:"Braamfontein, JHB",
    zarPrice:9_200_000,depositPct:0.20,status:"operational",type:"Residential + Retail",
    incomeMonthly:110_000,incomeAnnual:1_320_000,expenses:15_000,renoZAR:1_200_000,bondRate:0.115,bondYears:20,
    note:"33 × 2-bed apts + 3 top-floor rooms + 2 retail shops. Fully occupied. Renovate to raise rents 20–30%.",
    url:"https://www.property24.com/for-sale/braamfontein/johannesburg/gauteng/3857/115592977",
+   img:"https://i.imgur.com/AYBoMtO.png",
    highlight:"Diversified Income — Apts + Retail",hColor:"#d4a853"},
   {id:"c4",order:4,name:"Braamfontein — 53 Units",location:"Braamfontein, JHB",
    zarPrice:18_465_000,depositPct:0.20,status:"operational",type:"Apartment Complex",
    incomeMonthly:185_000,incomeAnnual:2_220_000,expenses:25_000,bondRate:0.115,bondYears:20,
    note:"53 units. 52/53 let. NO TRANSFER DUTY (saves ~R1.5M). Biometric + 24hr security. 3min to Gautrain.",
    url:"https://www.property24.com/for-sale/braamfontein/johannesburg/gauteng/3857/113517026",
+   img:"https://i.imgur.com/sant18L.png",
    highlight:"No Transfer Duty — Saves R1.5M",hColor:"#3dc4b8"},
   {id:"c5",order:5,name:"Braamfontein — 68 Apts + 6 Retail",location:"Braamfontein, JHB",
    zarPrice:28_000_000,depositPct:0.20,status:"operational",type:"Mixed Use",
    incomeMonthly:500_000,incomeAnnual:6_000_000,expenses:80_000,bondRate:0.115,bondYears:20,
    note:"68 × 2-bed apts + 17 rooms + 6 retail stores. 20 covered bays. Lift. 21.4% gross ROI. Near Wits + CBD.",
    url:"https://www.property24.com/for-sale/braamfontein/johannesburg/gauteng/3857/113214633",
+   img:"https://i.imgur.com/QgeTXyR.png",
    highlight:"21.4% Gross ROI — Biggest Income Asset",hColor:"#a07be8"},
   {id:"c6",order:6,name:"Parktown — Office Conversion",location:"Parktown, JHB",
    zarPrice:16_000_000,depositPct:0.25,status:"conversion",type:"Office → Student Acc",
+   img:"https://i.imgur.com/K9UAddk.png",
    incomeMonthly:0,incomeAnnual:0,expenses:30_000,
    postConvMonthly:50*6500,postConvAnnual:50*6500*12,
    renoZAR:6_200_000,bondRate:0.115,bondYears:20,
@@ -101,19 +107,28 @@ const KPI=({label,value,sub,color,big})=>(
   </div>
 );
 
-const ImgPlaceholder=({prop})=>(
-  <div style={{width:"100%",height:130,background:C.dim,borderRadius:"6px 6px 0 0",
-    border:`2px dashed ${C.border}`,display:"flex",flexDirection:"column",
-    alignItems:"center",justifyContent:"center",gap:6,position:"relative"}}>
-    <div style={{fontSize:10,color:C.muted,letterSpacing:"0.1em",textTransform:"uppercase"}}>📷 Add Photo Here</div>
-    <div style={{fontSize:9,color:C.muted,opacity:0.6}}>{prop.location}</div>
-    <a href={prop.url} target="_blank" rel="noreferrer"
-      style={{fontSize:9,color:C.blue,textDecoration:"none",letterSpacing:"0.1em",
-        position:"absolute",bottom:8,right:10}}>
-      VIEW LISTING →
-    </a>
-  </div>
-);
+const ImgPlaceholder=({prop})=>{
+  const [err,setErr]=useState(false);
+  return(
+    <div style={{width:"100%",height:160,background:C.dim,borderRadius:"6px 6px 0 0",
+      overflow:"hidden",position:"relative"}}>
+      {prop.img&&!err
+        ?<img src={prop.img} alt={prop.name} onError={()=>setErr(true)}
+            style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+        :<div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",
+            alignItems:"center",justifyContent:"center",gap:6,border:`2px dashed ${C.border}`}}>
+          <div style={{fontSize:10,color:C.muted,letterSpacing:"0.1em",textTransform:"uppercase"}}>📷 Add Photo Here</div>
+          <div style={{fontSize:9,color:C.muted,opacity:0.6}}>{prop.location}</div>
+        </div>
+      }
+      <a href={prop.url} target="_blank" rel="noreferrer"
+        style={{fontSize:9,color:"#fff",textDecoration:"none",letterSpacing:"0.1em",
+          position:"absolute",bottom:8,right:10,background:"#00000088",padding:"3px 8px",borderRadius:3}}>
+        VIEW LISTING →
+      </a>
+    </div>
+  );
+};
 
 const TABS=["Overview","Commercial","Cash Flow","Tax","Investments","Roadmap"];
 
